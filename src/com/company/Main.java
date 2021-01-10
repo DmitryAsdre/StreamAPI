@@ -34,7 +34,7 @@ public class Main {
             Stream<String> stream = Files.lines(Paths.get("data/trades.txt"));
             try {
                 StocksAccumulator accumulator = new StocksAccumulator();
-                stream.map(Main::convertToTransaction).reduce(accumulator, (x, y) -> x.addTransaction(y), (x, y) -> x);
+                stream.map(Main::convertToTransaction).reduce(accumulator, (a, t) -> a.addTransaction(t), (x, y) -> x);
                 Vector<Stock> stocks = accumulator.getVector();
                 printTopTransaction(stocks);
             }finally {
@@ -43,6 +43,5 @@ public class Main {
         }catch(IOException e){
             System.out.println(e.getMessage());
         }
-	// write your code here
     }
 }
