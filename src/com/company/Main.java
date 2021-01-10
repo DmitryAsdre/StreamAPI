@@ -18,13 +18,13 @@ public class Main {
         return new Transaction(Long.parseLong(splitted[0]), Long.parseLong(splitted[1]), splitted[2], splitted[3], Double.parseDouble(splitted[4]),
                 Long.parseLong(splitted[5]), Double.parseDouble(splitted[6]), Double.parseDouble(splitted[7]), Double.parseDouble(splitted[8]));
     }
-    public static void printTopTransaction(Vector<Stock> stocks){
+    public static void printTopStocks(Vector<Stock> stocks){
         stocks.sort(new StockDeltaComparator());
-        System.out.println("10 самых неудачных сделок :");
+        System.out.println("10 самых неудачных акций :");
         for(int i = 0; i < 10; i++) {
             System.out.println(stocks.get(i).toString());
         }
-        System.out.println("10 самых удачных сделок :");
+        System.out.println("10 самых удачных акций :");
         for(int i = 0; i < 10; i++){
             System.out.println(stocks.get(stocks.size() - i - 1).toString());
         }
@@ -36,7 +36,7 @@ public class Main {
                 StocksAccumulator accumulator = new StocksAccumulator();
                 stream.map(Main::convertToTransaction).reduce(accumulator, (a, t) -> a.addTransaction(t), (x, y) -> x);
                 Vector<Stock> stocks = accumulator.getVector();
-                printTopTransaction(stocks);
+                printTopStocks(stocks);
             }finally {
                 stream.close();
             }
