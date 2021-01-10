@@ -10,14 +10,14 @@ public class Stock {
     public Stock(final Transaction t){
         open_transaction = new Transaction(t);
         close_transaction = new Transaction(t);
-        total_volume = t.getVOLUME();
+        total_volume = t.getVOLUME()*t.getPRICE();
         SECCODE = t.getSECCODE();
     }
     public void addTransaction(final Transaction t){
         if(!t.getSECCODE().equals(SECCODE))
             throw new RuntimeException("wrong SECCODE");
         close_transaction = new Transaction(t);
-        total_volume += t.getVOLUME();
+        total_volume += t.getVOLUME()*t.getPRICE();
     }
     public final Transaction getOpenTransaction(){return open_transaction;}
     public final Transaction getCloseTransaction(){return  close_transaction;}
